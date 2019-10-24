@@ -1,5 +1,7 @@
 require_relative './config/environment.rb'
 
+API_URL = "https://api.scryfall.com/cards/search?q="
+
 def get_json(url)
     response = RestClient.get(url)
     json = JSON.parse(response)
@@ -12,12 +14,23 @@ def parse_cards(json)
             puts card_hash["image_uris"]["art_crop"]
         end
     end
+
+    if json["next_page"]
+        get_json(json["next_page"])
+        parse_cards(json)
+    end
 end
 
 def scryfall_api
-    json = get_json('https://api.scryfall.com/cards/search?q=t%3Alegend')
-    parse_cards(json)
-    # puts json
+    creature_array = ["merfolk", "goblin", "sliver", "angel"]
+    creature_array.each do |creature_str|
+        url = API_URL + "t%3Alegend+t%3A" + creature_str
+        # puts url
+        json = get_json(url)
+        parse_cards(json)
+
+        sleep(0.1)  # per the API documentation: https://scryfall.com/docs/api
+    end
 end
 
 scryfall_api
