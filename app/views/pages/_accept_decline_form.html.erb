@@ -1,0 +1,7 @@
+<h2>Text of @accept_or_decline is: <%= accept_or_decline %> </h2>
+
+<%= form_for :form_data do |f| %>
+    <%= f.button "Accept", name: "button_action", value: "accept" %>
+    <%= f.button "Decline", name: "button_action", value: "decline" %>
+    <%= f.hidden_field :image_set, value: image_set %> 
+<% end %>

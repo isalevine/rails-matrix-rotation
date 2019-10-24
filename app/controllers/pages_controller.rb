@@ -1,6 +1,21 @@
 class PagesController < ApplicationController
   def index
-    @img_array = get_scryfall_images
+    @img_array = []
+    if params["accept_or_decline"] && params["accept_or_decline"]["img_array"]
+      @img_array = params["accept_or_decline"]["img_array"]
+    end
+
+    @accept_or_decline = params["button_action"] || "default text"
+    if @img_array.empty? || @accept_or_decline == "decline"
+      @img_array = get_scryfall_images
+    end
+
+    puts
+    puts @img_array
+    puts
+  end
+
+  def update_accept_decline
   end
 
 
@@ -48,6 +63,6 @@ class PagesController < ApplicationController
       sleep(0.1)  # per the API documentation: https://scryfall.com/docs/api
     end
 
-    img_array
+    img_array.sample(9)
   end
 end

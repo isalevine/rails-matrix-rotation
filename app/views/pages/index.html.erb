@@ -1,4 +1,6 @@
 <h1>Pages#index</h1>
 <p>Find me in app/views/pages/index.html.erb</p>
 
-<%= render partial: "pages/card", collection: @img_array, as: :img_hash %>
+<%= render partial: "pages/card", collection: @image_set.img_array, as: :img_hash %>
+
+<%= render partial: "pages/accept_decline_form", locals: {accept_or_decline: @accept_or_decline, image_set: @image_set} %>
