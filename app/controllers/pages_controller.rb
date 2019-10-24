@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def index
-    @images = scryfall_api
+    @img_array = get_scryfall_images
   end
 
 
@@ -19,7 +19,12 @@ class PagesController < ApplicationController
     data_array.each do |card_hash|
       if card_hash["image_uris"]
         # puts card_hash["image_uris"]["art_crop"]
-        img_array << card_hash["image_uris"]["art_crop"]
+        img_hash = {}
+        img_hash["name"] = card_hash["name"]
+        img_hash["small"] = card_hash["image_uris"]["small"] 
+        img_hash["art_crop"] = card_hash["image_uris"]["art_crop"]
+        img_hash["artist"] = card_hash["artist"]
+        img_array << img_hash
       end
     end
 
@@ -29,7 +34,7 @@ class PagesController < ApplicationController
     end
   end
   
-  def scryfall_api
+  def get_scryfall_images
     api_url = "https://api.scryfall.com/cards/search?q="
     img_array = []
     creature_array = ["merfolk", "goblin", "sliver", "angel"]
