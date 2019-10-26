@@ -1,18 +1,23 @@
 class PagesController < ApplicationController
   def index
-    @img_array = []
-    if params["accept_or_decline"] && params["accept_or_decline"]["img_array"]
-      @img_array = params["accept_or_decline"]["img_array"]
-    end
+    # try sessions per: https://www.justinweiss.com/articles/how-rails-sessions-work/
+    session[:img_array] = session[:img_array] || []
+
+    # if params["accept_or_decline"] && params["accept_or_decline"]["img_array"]
+    #   @img_array = params["accept_or_decline"]["img_array"]
+    # end
 
     @accept_or_decline = params["button_action"] || "default text"
-    if @img_array.empty? || @accept_or_decline == "decline"
-      @img_array = get_scryfall_images
+    if session[:img_array].empty? || @accept_or_decline == "decline"
+      session[:img_array] = get_scryfall_images
     end
 
     puts
-    puts @img_array
+    puts session[:img_array]
     puts
+
+    # is this necessary, or will session variables be available in rendered views??
+    @img_array = session[:img_array]
   end
 
   def update_accept_decline
