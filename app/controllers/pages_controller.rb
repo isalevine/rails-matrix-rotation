@@ -26,10 +26,10 @@ class PagesController < ApplicationController
     data_array.each do |card_hash|
       if card_hash["image_uris"]
         img_hash = {
-          "name": card_hash["name"],
-          "small": card_hash["image_uris"]["small"],
-          "art_crop": card_hash["image_uris"]["art_crop"],
-          "artist": card_hash["artist"]
+          "name" => card_hash["name"],
+          "small" => card_hash["image_uris"]["small"],
+          "art_crop" => card_hash["image_uris"]["art_crop"],
+          "artist" => card_hash["artist"]
         }
         img_array << img_hash
       end
