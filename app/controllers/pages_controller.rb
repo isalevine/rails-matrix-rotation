@@ -36,7 +36,7 @@ class PagesController < ApplicationController
     end
 
     if json["next_page"]
-      get_json(json["next_page"])
+      json = get_json(json["next_page"])
       parse_cards(json, img_array)
     end
   end
