@@ -25,12 +25,12 @@ class PagesController < ApplicationController
     data_array = json["data"]
     data_array.each do |card_hash|
       if card_hash["image_uris"]
-        # puts card_hash["image_uris"]["art_crop"]
-        img_hash = {}
-        img_hash["name"] = card_hash["name"]
-        img_hash["small"] = card_hash["image_uris"]["small"] 
-        img_hash["art_crop"] = card_hash["image_uris"]["art_crop"]
-        img_hash["artist"] = card_hash["artist"]
+        img_hash = {
+          "name": card_hash["name"],
+          "small": card_hash["image_uris"]["small"],
+          "art_crop": card_hash["image_uris"]["art_crop"],
+          "artist": card_hash["artist"]
+        }
         img_array << img_hash
       end
     end
@@ -48,7 +48,6 @@ class PagesController < ApplicationController
 
     creature_search_array.each do |creature_str|
       search_url = api_url + "t%3Alegend+t%3A" + creature_str
-      # puts url
       json = get_json(search_url)
       parse_cards(json, img_array)
 
