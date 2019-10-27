@@ -57,9 +57,9 @@ class PagesController < ApplicationController
   def get_scryfall_images
     api_url = "https://api.scryfall.com/cards/search?q="
     img_array = []
-    creature_array = ["merfolk", "goblin", "sliver", "angel"]
+    creature_search_array = ["merfolk", "goblin", "sliver", "angel"]
 
-    creature_array.each do |creature_str|
+    creature_search_array.each do |creature_str|
       search_url = api_url + "t%3Alegend+t%3A" + creature_str
       # puts url
       json = get_json(search_url)
