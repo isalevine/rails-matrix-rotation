@@ -20,11 +20,9 @@ class PagesController < ApplicationController
     @img_array = session[:img_array]
   end
 
-  def update_accept_decline
-  end
 
 
-
+  private
 
   # helper methods for M:tG Scryfall API for card images
   # (methods copied from magic-art.rb)
